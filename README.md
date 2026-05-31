@@ -413,13 +413,36 @@ IMAGE_PATH = r"your image path"
 build_exe.bat
 ```
 
-打包前需要准备本地 Chromium 目录：
+由于 Chromium / Chrome 浏览器文件体积较大，其中 `chrome-win64/chrome.dll` 可能超过 GitHub 单文件 100MB 限制，因此本仓库不包含 `chrome-win64/` 目录。
+
+如果需要打包 EXE，请先在本地手动下载并解压浏览器文件。
+
+### 1. 准备本地 Chromium 目录
+
+请下载 Windows 版 Chrome / Chromium，并将其解压到项目根目录，目录结构应如下：
+
+```text
+InvoiceVerifier/
+├── chrome-win64/
+│   ├── chrome.exe
+│   ├── chrome.dll
+│   └── ...
+├── app/
+├── core/
+├── config/
+├── main.py
+└── build_exe.bat
+```
+
+其中必须保证以下文件存在：
 
 ```text
 chrome-win64/chrome.exe
 ```
 
-然后执行：
+### 2. 执行打包脚本
+
+在项目根目录运行：
 
 ```bat
 build_exe.bat
@@ -431,16 +454,30 @@ build_exe.bat
 release/InvoiceVerifier.exe
 ```
 
-说明：
+### 3. 说明
 
 - 打包脚本会创建 `.venv_pack` 虚拟环境
-- 打包脚本会安装最小依赖
-- 打包脚本会将本地 Chromium 文件打入程序
-- 生成结果为单文件 EXE
-- 首次启动较慢，因为 onefile 模式会先解压运行
-- 如果修改了 API Key 或配置文件，需要重新打包
+- 打包脚本会安装打包所需的最小依赖
+- 打包脚本会将本地 `chrome-win64/` 浏览器文件打入程序
+- 生成结果为 Windows 单文件 EXE
+- 首次启动较慢，因为 PyInstaller onefile 模式会先解压运行环境
+- 如果修改了 API Key 或其他配置文件，需要重新打包
+- `chrome-win64/` 仅用于本地打包，不建议提交到 GitHub
+- 如果打包脚本提示找不到 `chrome-win64/chrome.exe`，请确认浏览器目录是否放在项目根目录下
 
----
+### 4. Git 忽略建议
+
+由于浏览器文件和打包产物体积较大，建议在 `.gitignore` 中加入：
+
+```gitignore
+chrome-win64/
+ms-playwright/
+release/
+dist/
+build/
+*.exe
+*.dll
+```
 
 ## 安全与合规说明
 
