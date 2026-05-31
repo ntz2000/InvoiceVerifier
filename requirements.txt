@@ -1,0 +1,7 @@
+PyQt5
+playwright
+openpyxl
+PyMuPDF
+Pillow
+requests
+openai
