@@ -1,0 +1,46 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+env/
+.venv_pack/
+
+# Build artifacts
+build/
+dist/
+release/
+*.spec
+
+# Local browser files
+chrome-win64/
+ms-playwright/
+
+# Runtime output
+output/
+logs/
+*.log
+
+# Generated reports and temporary files
+*.xlsx
+*.pdf
+*.tmp
+*.part
+
+# Executables and dynamic libraries
+*.exe
+*.dll
+
+# Local secrets
+.env
+*.env
+
+# IDE
+.vscode/
+.idea/
+
+# Local config changes
+config/
